@@ -38,6 +38,10 @@ Bootstrap 5, and the OpenWeather API.
    - If you see JSON weather data, your key is working.
    - If you see {"cod":401}, your key is not active yet — wait and retry.
 
+8. If it doesn't work use my API key and put it in the .env.
+   OPENWEATHER_API_KEY=b609c98cdbb31ae0d38d488011eb5a5b
+
+
 ## Setup
 
 1. Clone or download this project folder.
