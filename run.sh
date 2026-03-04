@@ -1,4 +1,7 @@
-#!/usr/bin/env bash
+# Princess Ibtihaj
+# CS492 
+# Prof. Madi
+#run.sh
 # Run the weather dashboard: create venv, install deps, start server on port 5001.
 
 set -e
