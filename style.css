@@ -1,0 +1,70 @@
+/* 
+Princess Ibtihaj
+CS492
+Prof. Madi
+style.css
+This stylesheet gives the dashboard its pink, princess-themed look and responsive layout.
+*/
+body {
+  /* Soft pastel backdrop */
+  background-color: #ffe6f2;
+  color: #4a154b;
+  font-family: "Baloo 2", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
+.navbar {
+  /* Deeper pink navbar */
+  background-color: #ffb6c1 !important;
+}
+
+.navbar-brand,
+.navbar-nav .nav-link {
+  color: #4a154b !important;
+}
+
+.navbar-nav .nav-link.active,
+.navbar-nav .nav-link:hover {
+  color: #ffffff !important;
+}
+
+/* Main content area */
+.main-content {
+  min-height: calc(100vh - 56px);
+  display: flex;
+  align-items: flex-start;
+  padding-top: 2rem;
+}
+
+/* Rounded cards */
+.card {
+  border-radius: 1rem;
+  border: 2px solid #f8bbd0;
+  background: #fff7fb;
+  box-shadow: 0 8px 16px rgba(255, 105, 180, 0.25);
+  margin-top: 1rem;
+}
+
+.card h1,
+.card h2,
+.card h3,
+.card h5 {
+  color: #d63384;  /* pink accent */
+}
+
+/* Primary button */
+.btn-primary {
+  background-color: #ff69b4;
+  border-color: #ff69b4;
+}
+
+.btn-primary:hover {
+  background-color: #ff85c2;
+  border-color: #ff85c2;
+}
+
+/* Form focus */
+.form-control:focus {
+  border-color: #ff69b4;
+  box-shadow: 0 0 0 0.2rem rgba(255, 105, 180, 0.25);
+}
