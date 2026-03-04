@@ -1,0 +1,55 @@
+<!--
+Princess Ibtihaj
+CS492
+Prof. Madi
+index.html
+This template renders the search form and shows the current weather details.
+-->
+{% extends "base.html" %}
+
+{% block title %}Weather Dashboard{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-8 col-lg-6">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h1 class="h3 mb-3 text-center">Weather Dashboard</h1>
+
+            <form method="POST" class="mb-3">
+              <div class="mb-3">
+                <label for="city" class="form-label">City</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="city"
+                  name="city"
+                  placeholder="Enter a city (e.g., Boston)"
+                  required
+                />
+              </div>
+              <button type="submit" class="btn btn-primary w-100">Get weather</button>
+            </form>
+            {% if error %}
+              <div class="alert alert-warning mt-3">{{ error }}</div>
+            {% endif %}
+
+            {% if weather %}
+              <div class="card mt-3">
+                <div class="card-body">
+                  <h2 class="h5 mb-3">{{ weather.city }}</h2>
+                  <ul class="list-unstyled mb-0">
+                    <li><strong>Temperature:</strong> {{ weather.temp_f }} °F</li>
+                    <li><strong>Description:</strong> {{ weather.description }}</li>
+                    <li><strong>Humidity:</strong> {{ weather.humidity }}%</li>
+                  </ul>
+                </div>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
