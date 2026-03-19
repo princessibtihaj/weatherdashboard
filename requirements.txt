@@ -1,0 +1,10 @@
+# Princess Ibtihaj
+# CS492
+# Prof. Madi
+# requirements.txt
+# This file lists the Python packages needed to run the weather app.
+# All direct dependencies used by app.py and views.py are included below.
+
+Flask>=2.0          
+requests>=2.0       
+python-dotenv>=1.0  
