@@ -8,7 +8,7 @@ This README explains how to set up and run the Princess's Perfect Predictor weat
 # Princess's Perfect Predictor
 
 A one-page weather dashboard built with Flask, 
-Bootstrap 5, and the WeatherAPI.com service.
+Bootstrap 5, & the WeatherAPI.com service.
 
 ## Requirements
 
