@@ -26,7 +26,7 @@ This template renders the full page (layout + content) for the weather dashboard
       rel="stylesheet"
     />
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark">
@@ -47,6 +47,9 @@ This template renders the full page (layout + content) for the weather dashboard
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">
               <a class="nav-link" href="{{ url_for('main.index') }}">Weather</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/api/health" target="_blank" rel="noopener noreferrer">API</a>
             </li>
           </ul>
         </div>
@@ -87,6 +90,23 @@ This template renders the full page (layout + content) for the weather dashboard
                         <li><strong>Temperature:</strong> {{ weather.temp_f }} °F</li>
                         <li><strong>Description:</strong> {{ weather.description }}</li>
                         <li><strong>Humidity:</strong> {{ weather.humidity }}%</li>
+                      </ul>
+                    </div>
+                  </div>
+                {% endif %}
+
+                {% if recent_searches %}
+                  <div class="card mt-3">
+                    <div class="card-body">
+                      <h2 class="h6 mb-2">Recent Searches</h2>
+                      <ul class="list-unstyled mb-0">
+                        {% for row in recent_searches %}
+                          <li class="mb-1">
+                            <strong>{{ row.city }}</strong>
+                            {% if row.country %}({{ row.country }}){% endif %}
+                            - {{ row.description or "No description" }}
+                          </li>
+                        {% endfor %}
                       </ul>
                     </div>
                   </div>

@@ -7,70 +7,80 @@ This README explains how to set up and run the Princess's Perfect Predictor weat
 -->
 # Princess's Perfect Predictor
 
-A one-page weather dashboard built with Flask, 
-Bootstrap 5, & the WeatherAPI.com service.
+Simple Flask weather dashboard with:
+
+- web UI (`/`)
+- REST API backend (`/api/...`)
+- database-backed search history
+- Heroku-ready deployment config
 
 ## Requirements
 
-- Python 3.10+
-- A free WeatherAPI.com account and API key
+- Python 3.11
+- WeatherAPI key from [weatherapi.com](https://www.weatherapi.com/)
 
-## Getting Your WeatherAPI.com API Key
+## Local Setup
 
-1. Go to `https://www.weatherapi.com/` and sign up for a free account.
-2. After verifying your email, go to your account dashboard and locate your API key.
-3. Copy the key; you will paste it into the `.env` file created by the run script.
+```bash
+cd /path/to/weatherdashboard
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
 
-## Setup & Running (recommended)
+Create `.env` in project root:
 
-1. Clone or download this project folder.
+```env
+WEATHERAPI_KEY=your_real_key
+# optional locally (defaults to SQLite):
+# DATABASE_URL=sqlite:///weatherdashboard.db
+# SECRET_KEY=change_me
+```
 
-2. From a terminal, change into the project directory:
+Run:
 
-   ```bash
-   cd /path/to/weatherdashboard
-   ```
+```bash
+python app.py
+```
 
-3. Run the startup script:
+Open `http://127.0.0.1:5000`.
 
-   ```bash
-   chmod +x run.sh
-   ./run.sh
-   ```
+## REST API Endpoints
 
-   What this script does:
-   - Creates a `.venv` virtual environment if it does not exist.
-   - Activates the virtual environment and installs `requirements.txt`.
-   - Creates a `.env` file with a `WEATHERAPI_KEY` placeholder **if it does not exist**, or appends a `WEATHERAPI_KEY` line if it is missing.
-   - Starts the Flask app on `http://127.0.0.1:5001` in debug mode.
+- `GET /api/health` -> simple health check
+- `GET /api/weather?city=Boston` -> current weather + hourly forecast JSON
+- `GET /api/search-history?limit=10` -> recent DB search history JSON
 
-4. Edit the `.env` file in the project root and replace the placeholder value:
+## Database
 
-   ```env
-   WEATHERAPI_KEY=your_real_weatherapi_key_here
-   ```
+- Cloud first: `JAWSDB_URL` (JawsDB MySQL on Heroku)
+- Next fallback: `DATABASE_URL`
+- Local fallback: SQLite (`sqlite:///weatherdashboard.db`)
+- Note: `mysql://...` is converted to `mysql+pymysql://...` for SQLAlchemy compatibility
 
-5. Restart `./run.sh` after updating the key, then open your browser to:
+## Heroku Deployment
 
-   `http://127.0.0.1:5001`
+This app uses:
 
-## Usage
+- `Procfile`: `web: gunicorn app:app`
+- Python runtime from `.python-version` (`3.11`)
+- `JAWSDB_URL` for cloud DB when present
 
-- Type a city name into the search box and click "Get Weather".
-- For best results, include the country code:
-  - Houston,US
-  - London,GB
-  - Toronto,CA
+Run:
 
-## Project Structure
+```bash
+git remote add heroku https://git.heroku.com/princessweather.git 2>/dev/null || true
+git push heroku main
+heroku ps:restart --app princessweather
+heroku ps:scale web=1 --app princessweather
+heroku logs --tail --app princessweather
+```
 
-weather-app/
-├── app.py
-├── views.py
-├── requirements.txt
-├── run.sh             ← startup script (venv, .env, run server)
-├── .env               ← not committed to Git (created/updated by run.sh)
-├── static/
-│   └── style.css      ← theme
-└── templates/
-    └── index.html     ← single Jinja2 template (no base layout)
+Test after deploy:
+
+```bash
+heroku open --app princessweather
+curl "https://princessweather.herokuapp.com/api/health"
+curl "https://princessweather.herokuapp.com/api/weather?city=Boston"
+curl "https://princessweather.herokuapp.com/api/search-history?limit=5"
+```
